@@ -1,0 +1,141 @@
+#:kivy 1.10.0
+
+
+WindowManager:
+    Pannel:
+
+
+
+<Pannel>:
+    name: "pannel"
+    paciente: paciente
+    medicamento: medicamento
+    quantidade: quantidade
+    posologia: posologia
+    obs: obs
+    obs_2: obs_2
+    chk: chk
+
+
+
+    GridLayout:
+        rows:8
+
+        GridLayout:
+            cols:2
+            Label:
+                font_size: 14
+                multiline: False
+                text: 'Nome do Paciente: '
+
+            TextInput:
+                id: paciente
+                font_size:14
+                multiline: False
+                text: ''
+
+        GridLayout:
+            cols:2
+            Label:
+                font_size: 14
+                multiline: False
+                text: 'Medicamento:'
+
+            TextInput:
+                id: medicamento
+                font_size:14
+                multiline: False
+                text: ''
+
+        GridLayout:
+            cols:2
+            Label:
+                font_size: 14
+                multiline: False
+                text: 'Quantidade (cp ou cx): '
+
+            TextInput:
+                id: quantidade
+                font_size:14
+                multiline: False
+                text: ''
+
+        GridLayout:
+            cols:2
+            Label:
+                font_size: 14
+                multiline: False
+                text: 'Comprimidos por dia: '
+
+            TextInput:
+                id: posologia
+                font_size:14
+                multiline: False
+                text: ''
+
+        GridLayout:
+            cols:2
+            Label:
+                font_size: 14
+                multiline: False
+                text: 'Obs Linha 1: '
+
+            TextInput:
+                id: obs
+                font_size:14
+                multiline: False
+                text: ''
+
+        GridLayout:
+            cols:2
+            Label:
+                font_size: 14
+                multiline: False
+                text: 'Obs Linha 2'
+
+            TextInput:
+                id: obs_2
+                font_size:14
+                multiline: False
+                text: ''
+
+        GridLayout:
+            cols:2
+
+
+            Label:
+                font_size: 14
+                multiline: False
+                text: 'Incluir Data'
+
+            CheckBox:
+                id: chk
+                group: 'check'
+
+        GridLayout:
+            cols: 4
+            Button:
+                text: 'Criar'
+                font_size: 14
+                on_release:
+                    root.start_func(paciente.text, medicamento.text, quantidade.text, posologia.text, obs.text, obs_2.text, chk.active)
+
+            Button:
+                text: 'Imprimir'
+                font_size: 14
+                on_release:
+                    root.printing()
+
+            Button:
+                text: 'Abrir'
+                font_size: 14
+                on_release:
+                    root.opening()
+
+
+            Button:
+                text: 'Sair'
+                font_size: 14
+                on_release: quit()
+
+
