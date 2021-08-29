@@ -15,11 +15,12 @@ WindowManager:
     obs: obs
     obs_2: obs_2
     chk: chk
+    vias: vias
 
 
 
     GridLayout:
-        rows:8
+        rows:9
 
         GridLayout:
             cols:2
@@ -107,6 +108,20 @@ WindowManager:
 
         GridLayout:
             cols:2
+            Label:
+                font_size: 14
+                multiline: False
+                text: 'Número de cópias: '
+
+            TextInput:
+                id: vias
+                font_size:14
+                write_tab: False
+                multiline: False
+                text: '3'
+
+        GridLayout:
+            cols:2
 
 
             Label:
@@ -124,26 +139,24 @@ WindowManager:
                 text: 'Criar'
                 font_size: 14
                 on_release:
-                    root.start_func(paciente.text, medicamento.text, quantidade.text, posologia.text, obs.text, obs_2.text, chk.active)
+                    root.start_func(paciente.text, medicamento.text, quantidade.text, posologia.text, obs.text, obs_2.text, chk.active, vias.text)
 
             Button:
                 text: 'Imprimir'
                 font_size: 14
                 on_release:
-                    root.printing()
+                    root.printing(paciente.text, medicamento.text, quantidade.text, posologia.text, obs.text, obs_2.text, chk.active, vias.text)
 
             Button:
                 text: 'Abrir'
                 font_size: 14
                 on_release:
-                    root.opening()
+                    root.opening(paciente.text, medicamento.text, quantidade.text, posologia.text, obs.text, obs_2.text, chk.active, vias.text)
 
 
             Button:
                 text: 'Sair'
                 font_size: 14
                 on_release: quit()
-
-
 
 
