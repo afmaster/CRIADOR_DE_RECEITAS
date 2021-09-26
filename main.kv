@@ -136,10 +136,16 @@ WindowManager:
         GridLayout:
             cols: 4
             Button:
-                text: 'Criar'
+                text: 'Novo'
                 font_size: 14
                 on_release:
-                    root.start_func(paciente.text, medicamento.text, quantidade.text, posologia.text, obs.text, obs_2.text, chk.active, vias.text)
+                    root.clear_inputs()
+
+            Button:
+                text: 'Criar PDF'
+                font_size: 14
+                on_release:
+                    root.create_pdf(paciente.text, medicamento.text, quantidade.text, posologia.text, obs.text, obs_2.text, chk.active, vias.text)
 
             Button:
                 text: 'Imprimir'
@@ -148,15 +154,10 @@ WindowManager:
                     root.printing(paciente.text, medicamento.text, quantidade.text, posologia.text, obs.text, obs_2.text, chk.active, vias.text)
 
             Button:
-                text: 'Abrir'
+                text: 'Abrir DOCX'
                 font_size: 14
                 on_release:
                     root.opening(paciente.text, medicamento.text, quantidade.text, posologia.text, obs.text, obs_2.text, chk.active, vias.text)
 
-
-            Button:
-                text: 'Sair'
-                font_size: 14
-                on_release: quit()
 
 

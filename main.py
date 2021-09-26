@@ -1,4 +1,5 @@
 import os
+import sys
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.lang import Builder
@@ -11,7 +12,7 @@ from docx.oxml.ns import qn
 from datetime import datetime
 from datetime import timedelta
 from docx.shared import Pt
-
+from docx2pdf import convert
 
 class Pannel(Screen):
     def start_func(self, paciente, medicamento, quantidade, posologia, obs, obs_2, chk, vias):
@@ -44,18 +45,19 @@ class Pannel(Screen):
         cols = sectPr.xpath('./w:cols')[0]
         cols.set(qn('w:num'), '2')
 
-        def prescription(dx):
+        def prescription(dx, i, j):
+
             table = document.add_table(rows=1, cols=2)
             table.style = 'Table Grid'
             hdr_cells_row_0 = table.rows[0].cells
             paragraph_table = hdr_cells_row_0[0].paragraphs[0]
             run = paragraph_table.add_run()
             run.add_picture(pic, width=2200000, height=700000)
-
+            k = str(i)
             hdr_cells_row_0[1].text = """
             Receituário de Controle Especial
-            1a Via - Farmácia.
-            """
+            %sa Via - %s.
+            """ % (k, j)
             paragraph_controle = hdr_cells_row_0[1].paragraphs[0]
             run = paragraph_controle.runs
             font = run[0].font
@@ -87,10 +89,10 @@ class Pannel(Screen):
             Tomar %s comp, VO, por dia.
             %s
             %s
-            
-            
-            
-            
+
+
+
+
             %s
             """ % (paciente, medicamento, quantidade, posologia, obs, obs_2, dx)
 
@@ -111,18 +113,18 @@ class Pannel(Screen):
 
             document.add_paragraph('')
 
-        prescription(agora)
-        prescription(agora)
+        prescription(agora, 1, "Farmácia")
+        prescription(agora, 2, "Paciente")
 
         if vias > 1:
-            prescription(next_month)
-            prescription(next_month)
+            prescription(next_month, 1, "Farmácia")
+            prescription(next_month, 2, "Paciente")
         else:
             pass
 
         if vias == 3:
-            prescription(two_months)
-            prescription(two_months)
+            prescription(two_months, 1, "Farmácia")
+            prescription(two_months, 2, "Paciente")
         else:
             pass
 
@@ -139,6 +141,18 @@ class Pannel(Screen):
         except Exception as err:
             print(err)
 
+    def clear_inputs(self):
+        self.paciente.text = ""
+        self.medicamento.text = ""
+        self.quantidade.text = ""
+        self.posologia.text = ""
+        self.obs.text= ""
+        self.obs_2.text = ""
+
+    def create_pdf(self, paciente, medicamento, quantidade, posologia, obs, obs_2, chk, vias):
+        self.start_func(paciente, medicamento, quantidade, posologia, obs, obs_2, chk, vias)
+        convert("prescription.docx")
+        os.startfile('prescription.pdf')
 
 class WindowManager(ScreenManager):
     pass
