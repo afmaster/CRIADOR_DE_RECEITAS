@@ -16,6 +16,7 @@ from datetime import timedelta
 from docx.shared import Pt
 import sys
 from os import path
+from docx2pdf import convert
 site_packages = next(p for p in sys.path if 'site-packages' in p)
 
 
